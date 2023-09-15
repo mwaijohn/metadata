@@ -2,23 +2,26 @@ package com.afrisoft.imagemetadataremover
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.annotation.Nullable
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
 
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     private val REQUEST_IMAGE_PICK = 1
 
     private var imageView: ImageView? = null
@@ -28,20 +31,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val toolbar: Toolbar? = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.app_name)
+
         imageView = findViewById<ImageView>(R.id.imageView)
 
         val btnLoadImage = findViewById<Button>(R.id.btnLoadImage)
         val btnViewMetadata = findViewById<Button>(R.id.btnViewMetadata)
-        val btnRemoveMetadata = findViewById<Button>(R.id.btnRemoveMetadata)
-        val btnPreview = findViewById<Button>(R.id.btnPreview)
+//        val btnRemoveMetadata = findViewById<Button>(R.id.btnRemoveMetadata)
+//        val btnPreview = findViewById<Button>(R.id.btnPreview)
 
         btnLoadImage.setOnClickListener { openImagePicker() }
 
         btnViewMetadata.setOnClickListener { viewImageMetadata() }
 
-        btnRemoveMetadata.setOnClickListener { removeImageMetadata() }
-
-        btnPreview.setOnClickListener { previewImage() }
+//        btnRemoveMetadata.setOnClickListener { removeImageMetadata() }
+//
+//        btnPreview.setOnClickListener { previewImage() }
 
     }
 
@@ -114,26 +121,26 @@ class MainActivity : ComponentActivity() {
 
 
             val combinedAttributes = "Date: $dateTime\n"+
-                    "Aperture: $aperture\n " +
-                    "Brightness: $brightness\n " +
-                    "Date: $date\n " +
+                    "Aperture: $aperture\n" +
+                    "Brightness: $brightness\n" +
+                    "Date: $date\n" +
                     "Make: $make\n"+
                     "Model: $model\n"+
-                    "Exposure Mode: $exposureMode\n " +
-                    "Exposure Time: $exposureTime\n " +
-                    "Flash: $flash\n " +
-                    "Focal Length: $focalLength\n " +
-                    "Light Source: $lightSource\n " +
-                    "Lens Max Aperture: $lensMaxAperture\n " +
-                    "Metering Mode: $meteringMode\n " +
-                    "Orientation: $orientation\n " +
-                    "Photographic Sensitivity: $photographicSensitivity\n " +
-                    "Scene Capture Type: $sceneCaptureType\n " +
-                    "Sensor Type: $sensorType\n " +
-                    "Scene Type: $sceneType\n " +
-                    "Shutter Speed: $shutterSpeed\n " +
-                    "White Balance: $whiteBalance\n " +
-                    "X Resolution: $xResolution\n " +
+                    "Exposure Mode: $exposureMode\n" +
+                    "Exposure Time: $exposureTime\n" +
+                    "Flash: $flash\n" +
+                    "Focal Length: $focalLength\n" +
+                    "Light Source: $lightSource\n" +
+                    "Lens Max Aperture: $lensMaxAperture\n" +
+                    "Metering Mode: $meteringMode\n" +
+                    "Orientation: $orientation\n" +
+                    "Photographic Sensitivity: $photographicSensitivity\n" +
+                    "Scene Capture Type: $sceneCaptureType\n" +
+                    "Sensor Type: $sensorType\n" +
+                    "Scene Type: $sceneType\n" +
+                    "Shutter Speed: $shutterSpeed\n" +
+                    "White Balance: $whiteBalance\n" +
+                    "X Resolution: $xResolution\n" +
                     "Y Resolution: $yResolution \n" +
                     "Latitude: $latitude \n" +
                     "Longitude: $longitude \n" +
@@ -202,5 +209,58 @@ class MainActivity : ComponentActivity() {
 
     private fun previewImage() {
         // TODO: Implement previewing the image with removed metadata
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+
+            R.id.action_privacy -> {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(getString(R.string.privacy_policy_url))
+                    )
+                )
+                true
+            }
+
+            R.id.action_share -> {
+                val sendIntent = Intent()
+                sendIntent.action = Intent.ACTION_SEND
+                sendIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Hey check out our app at: https://play.google.com/store/apps/details?id=$packageName"
+                )
+                sendIntent.type = "text/plain"
+                startActivity(sendIntent)
+                true
+            }
+
+            R.id.action_rateus -> {
+                try {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=$packageName")
+                        )
+                    )
+                } catch (e: ActivityNotFoundException) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                        )
+                    )
+                }
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
