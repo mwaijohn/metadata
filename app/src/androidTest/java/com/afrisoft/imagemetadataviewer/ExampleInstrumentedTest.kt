@@ -1,4 +1,4 @@
-package com.afrisoft.imagemetadataremover
+package com.afrisoft.imagemetadataviewer
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

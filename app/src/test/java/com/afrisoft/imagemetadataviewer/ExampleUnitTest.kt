@@ -1,4 +1,4 @@
-package com.afrisoft.imagemetadataremover
+package com.afrisoft.imagemetadataviewer
 
 import org.junit.Test
 

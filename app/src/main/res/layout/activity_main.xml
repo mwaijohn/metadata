@@ -38,6 +38,14 @@
         android:background="@color/custom"
         android:textColor="@color/white"
         android:layout_margin="5dp"
-        android:text="View Metadata" />
+        android:text="View Metadata"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
 </LinearLayout>

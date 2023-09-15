@@ -1,4 +1,4 @@
-package com.afrisoft.imagemetadataremover
+package com.afrisoft.imagemetadataviewer
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -13,11 +13,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.android.gms.ads.MobileAds
 import java.io.IOException
 
 
@@ -35,20 +36,20 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.app_name)
 
-        imageView = findViewById<ImageView>(R.id.imageView)
+        Admob.initMediationSdk(this)
+
+        imageView = findViewById(R.id.imageView)
 
         val btnLoadImage = findViewById<Button>(R.id.btnLoadImage)
         val btnViewMetadata = findViewById<Button>(R.id.btnViewMetadata)
-//        val btnRemoveMetadata = findViewById<Button>(R.id.btnRemoveMetadata)
-//        val btnPreview = findViewById<Button>(R.id.btnPreview)
 
         btnLoadImage.setOnClickListener { openImagePicker() }
 
         btnViewMetadata.setOnClickListener { viewImageMetadata() }
 
-//        btnRemoveMetadata.setOnClickListener { removeImageMetadata() }
-//
-//        btnPreview.setOnClickListener { previewImage() }
+        val bannerContainer: LinearLayout = findViewById(R.id.banner_container)
+        val banner = Admob.banner(this)
+        bannerContainer.addView(banner)
 
     }
 
