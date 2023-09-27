@@ -3,6 +3,7 @@ package com.afrisoft.imagemetadataviewer
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.ExifInterface
@@ -18,6 +19,7 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAd
 import java.io.IOException
 
 
@@ -26,7 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     private var imageView: ImageView? = null
     private var imageUri: Uri? = null
-
+    companion object{
+        var interstitial: AdManagerInterstitialAd? = null
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         val banner = Admob.banner(this)
         bannerContainer.addView(banner)
 
+        Admob.loadInterstitial(this)
     }
 
     private fun openImagePicker() {
@@ -187,7 +192,10 @@ class MainActivity : AppCompatActivity() {
             val dialogBuilder = AlertDialog.Builder(this)
             dialogBuilder.setTitle(getString(R.string.image_metadata))
             dialogBuilder.setMessage(newString)
-            dialogBuilder.setPositiveButton(getString(R.string.ok), null)
+            dialogBuilder.setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                Admob.showInterstitial(interstitial,this)
+                dialog.cancel()
+            }
 //            dialogBuilder.setPositiveButton("hhghgh", null)
 
             dialogBuilder.setNegativeButton(
