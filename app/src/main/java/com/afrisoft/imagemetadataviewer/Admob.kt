@@ -3,17 +3,12 @@ package com.afrisoft.imagemetadataviewer
 import android.app.Activity
 import android.content.Context
 import android.content.pm.ApplicationInfo
-import android.util.Log
 import com.applovin.sdk.AppLovinSdk
 import com.applovin.sdk.AppLovinSdkConfiguration
 import com.facebook.ads.AdSettings
 import com.facebook.ads.AudienceNetworkAds
 import com.google.android.gms.ads.*
-import com.google.android.gms.ads.admanager.AdManagerAdRequest
 import com.google.android.gms.ads.admanager.AdManagerAdView
-import com.google.android.gms.ads.admanager.AdManagerInterstitialAd
-import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback
-import com.google.android.gms.ads.interstitial.InterstitialAd
 
 
 class Admob {
@@ -69,42 +64,42 @@ class Admob {
                 .initialize()
         }
 
-        fun loadInterstitial(context: Context): AdManagerInterstitialAd? {
-
-            var mInterstitialAd: AdManagerInterstitialAd? = null
-
-            val adRequest = AdManagerAdRequest.Builder().build()
-            val addUnitId = if (isDebuggable(context)) {
-                context.getString(R.string.admob_interstitial_test)
-            }else {
-                context.getString(R.string.admob_interstitial)
-            }
-
-            AdManagerInterstitialAd.load(context,addUnitId, adRequest, object :  AdManagerInterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d("Admob", adError.message)
-                    mInterstitialAd = null
-                }
-
-                override fun onAdLoaded(interstitialAd: AdManagerInterstitialAd) {
-                    Log.d("Admob", "Ad was loaded.")
-                    mInterstitialAd = interstitialAd
-                    MainActivity.interstitial = interstitialAd
-                }
-
-            })
-
-
-            return mInterstitialAd
-        }
-
-        fun showInterstitial(mInterstitialAd: InterstitialAd?, activity: Activity){
-            if (mInterstitialAd != null) {
-                mInterstitialAd.show(activity)
-            } else {
-                Log.d("TAG", "The interstitial ad wasn't ready yet.")
-            }
-        }
+//        fun loadInterstitial(context: Context): AdManagerInterstitialAd? {
+//
+//            var mInterstitialAd: AdManagerInterstitialAd? = null
+//
+//            val adRequest = AdManagerAdRequest.Builder().build()
+//            val addUnitId = if (isDebuggable(context)) {
+//                context.getString(R.string.admob_interstitial_test)
+//            }else {
+//                context.getString(R.string.admob_interstitial)
+//            }
+//
+//            AdManagerInterstitialAd.load(context,addUnitId, adRequest, object :  AdManagerInterstitialAdLoadCallback() {
+//                override fun onAdFailedToLoad(adError: LoadAdError) {
+//                    Log.d("Admob", adError.message)
+//                    mInterstitialAd = null
+//                }
+//
+//                override fun onAdLoaded(interstitialAd: AdManagerInterstitialAd) {
+//                    Log.d("Admob", "Ad was loaded.")
+//                    mInterstitialAd = interstitialAd
+//                    MainActivity.interstitial = interstitialAd
+//                }
+//
+//            })
+//
+//
+//            return mInterstitialAd
+//        }
+//
+//        fun showInterstitial(mInterstitialAd: InterstitialAd?, activity: Activity){
+//            if (mInterstitialAd != null) {
+//                mInterstitialAd.show(activity)
+//            } else {
+//                Log.d("TAG", "The interstitial ad wasn't ready yet.")
+//            }
+//        }
 
     }
 }

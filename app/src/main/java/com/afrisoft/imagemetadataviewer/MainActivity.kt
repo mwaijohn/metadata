@@ -28,9 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     private var imageView: ImageView? = null
     private var imageUri: Uri? = null
-    companion object{
-        var interstitial: AdManagerInterstitialAd? = null
-    }
+//    companion object{
+//        var interstitial: AdManagerInterstitialAd? = null
+//    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         val banner = Admob.banner(this)
         bannerContainer.addView(banner)
 
-        Admob.loadInterstitial(this)
+//        Admob.loadInterstitial(this)
     }
 
     private fun openImagePicker() {
@@ -193,7 +193,7 @@ class MainActivity : AppCompatActivity() {
             dialogBuilder.setTitle(getString(R.string.image_metadata))
             dialogBuilder.setMessage(newString)
             dialogBuilder.setPositiveButton(getString(R.string.ok)) { dialog, _ ->
-                Admob.showInterstitial(interstitial,this)
+//                Admob.showInterstitial(interstitial,this)
                 dialog.cancel()
             }
 //            dialogBuilder.setPositiveButton("hhghgh", null)
