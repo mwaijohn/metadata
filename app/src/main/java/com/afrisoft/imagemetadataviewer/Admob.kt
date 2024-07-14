@@ -64,5 +64,42 @@ class Admob {
                 .initialize()
         }
 
+//        fun loadInterstitial(context: Context): AdManagerInterstitialAd? {
+//
+//            var mInterstitialAd: AdManagerInterstitialAd? = null
+//
+//            val adRequest = AdManagerAdRequest.Builder().build()
+//            val addUnitId = if (isDebuggable(context)) {
+//                context.getString(R.string.admob_interstitial_test)
+//            }else {
+//                context.getString(R.string.admob_interstitial)
+//            }
+//
+//            AdManagerInterstitialAd.load(context,addUnitId, adRequest, object :  AdManagerInterstitialAdLoadCallback() {
+//                override fun onAdFailedToLoad(adError: LoadAdError) {
+//                    Log.d("Admob", adError.message)
+//                    mInterstitialAd = null
+//                }
+//
+//                override fun onAdLoaded(interstitialAd: AdManagerInterstitialAd) {
+//                    Log.d("Admob", "Ad was loaded.")
+//                    mInterstitialAd = interstitialAd
+//                    MainActivity.interstitial = interstitialAd
+//                }
+//
+//            })
+//
+//
+//            return mInterstitialAd
+//        }
+//
+//        fun showInterstitial(mInterstitialAd: InterstitialAd?, activity: Activity){
+//            if (mInterstitialAd != null) {
+//                mInterstitialAd.show(activity)
+//            } else {
+//                Log.d("TAG", "The interstitial ad wasn't ready yet.")
+//            }
+//        }
+
     }
 }
